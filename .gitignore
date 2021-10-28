@@ -354,3 +354,6 @@ MigrationBackup/
 
 # distributable folder
 dist/
+
+# Logs
+logs/
