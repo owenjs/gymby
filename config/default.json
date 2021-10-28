@@ -1,0 +1,6 @@
+{
+  "name": "Gymby App",
+  "db": {
+    "collection": "gymby"
+  }
+}

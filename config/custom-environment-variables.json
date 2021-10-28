@@ -1,0 +1,7 @@
+{
+  "db": {
+    "user": "DB_USER",
+    "pass": "DB_PASS",
+    "cluster": "DB_CLUSTER"
+  }
+}
