@@ -13,7 +13,7 @@ describe("/api/session", () => {
     await mongoose.disconnect();
   });
 
-  it("should return 'Sessions'", async () => {
+  it("should return 'Sessions...'", async () => {
     const res = await request(server).get("/api/session");
 
     expect(res.text).toBe("Sessions...");

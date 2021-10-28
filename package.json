@@ -7,9 +7,9 @@
   "license": "MIT",
   "scripts": {
     "build": "babel src -d dist",
-    "start": "npm run build && node dist",
-    "restart": "rimraf dist && npm run start",
-    "dev": "NODE_ENV=development nodemon --exec npm run restart",
+    "start": "yarn run build && node dist",
+    "restart": "rimraf dist && yarn run start",
+    "dev": "NODE_ENV=development nodemon --exec yarn run restart",
     "lint": "yarn lint:js",
     "lint:js": "eslint \"src/**/*\" --fix",
     "test": "jest --watchAll --verbose"
