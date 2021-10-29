@@ -14,7 +14,7 @@ describe("/api/session", () => {
   });
 
   it("should return 'Sessions...'", async () => {
-    const res = await request(server).get("/api/session");
+    const res = await request(server).get("/api/sessions");
 
     expect(res.text).toBe("Sessions...");
   });

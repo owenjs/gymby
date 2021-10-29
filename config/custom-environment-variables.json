@@ -3,5 +3,6 @@
     "user": "DB_USER",
     "pass": "DB_PASS",
     "cluster": "DB_CLUSTER"
-  }
+  },
+  "jwPrivateKey": "JWT_PRIVATE_KEY"
 }
