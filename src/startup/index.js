@@ -1,9 +1,9 @@
 import config from "src/startup/config";
 import db from "src/startup/db";
+import routes from "src/startup/routes";
 
-const init = app => {
+export default app => {
   config(app);
   db();
+  routes(app);
 };
-
-export default init;
