@@ -96,7 +96,13 @@ describe("/api/user", () => {
     it("should return user object if valid request", async () => {
       const res = await exec();
 
-      expect(Object.keys(res.body)).toEqual(expect.arrayContaining(["username"]));
+      expect(Object.keys(res.body)).toEqual(expect.arrayContaining(["_id", "username"]));
+    });
+
+    it("should not return the user's hash password if valid request", async () => {
+      const res = await exec();
+
+      expect(Object.keys(res.body)).not.toEqual(expect.arrayContaining(["password"]));
     });
 
     it("header in the response should include the user's jwt token if valid request", async () => {
