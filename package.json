@@ -14,7 +14,7 @@
     "lint": "yarn lint:js",
     "lint:js": "eslint \"src/**/*\" --fix",
     "test": "jest --watchAll --verbose",
-    "pre-commit": "jest -o && yarn lint"
+    "pre-commit": "jest -o && lint-staged"
   },
   "devDependencies": {
     "@3sidedcube/prettier-config": "^1.0.0",
@@ -30,6 +30,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^7.0.4",
     "jest": "^27.3.1",
+    "lint-staged": ">=10",
     "nodemon": "^2.0.14",
     "prettier": "^2.4.1",
     "rimraf": "^3.0.2",
@@ -47,5 +48,8 @@
     "morgan": "^1.10.0",
     "winston": "^3.3.3"
   },
-  "prettier": "@3sidedcube/prettier-config"
+  "prettier": "@3sidedcube/prettier-config",
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
+  }
 }
