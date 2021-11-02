@@ -13,8 +13,8 @@
     "dev": "NODE_ENV=development nodemon --exec yarn run restart",
     "lint": "yarn lint:js",
     "lint:js": "eslint \"src/**/*\" --fix",
-    "test": "jest --watchAll --verbose",
-    "pre-commit": "jest -o && lint-staged"
+    "test": "jest -i --watch --verbose",
+    "pre-commit": "jest -o -i && lint-staged"
   },
   "devDependencies": {
     "@3sidedcube/prettier-config": "^1.0.0",

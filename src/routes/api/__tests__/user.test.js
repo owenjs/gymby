@@ -22,8 +22,8 @@ describe("/api/user", () => {
   });
 
   describe("POST /", () => {
-    const username = "123",
-      password = "pass123";
+    const username = "user123",
+      password = "userPass123";
 
     beforeEach(() => {
       token = "";
@@ -37,7 +37,7 @@ describe("/api/user", () => {
       return request(server).post("/api/user").set("x-auth-token", token).send(payload);
     };
 
-    it("should return 200 is valid request", async () => {
+    it("should return 200 if valid request", async () => {
       const res = await exec();
 
       expect(res.status).toBe(200);
