@@ -16,6 +16,10 @@ export const Session = mongoose.model(
     },
     endDate: {
       type: Date
+    },
+    duration: {
+      type: Number,
+      min: 0
     }
   })
 );

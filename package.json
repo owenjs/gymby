@@ -46,6 +46,7 @@
     "joi": "^17.4.2",
     "joi-objectid": "^4.0.2",
     "jsonwebtoken": "^8.5.1",
+    "luxon": "^2.0.2",
     "mongoose": "^6.0.12",
     "morgan": "^1.10.0",
     "winston": "^3.3.3"

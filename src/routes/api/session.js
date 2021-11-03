@@ -26,7 +26,13 @@ router.post("/start", auth, async (req, res) => {
 });
 
 // End Session
-router.post("/end", (req, res) => {
+router.post("/end", auth, async (req, res) => {
+  let user = await User.findById(req.user._id);
+  if (!user) return res.status(400).send("User not found");
+
+  const session = await Session.findOne({ user: req.user._id, endDate: null });
+  if (!session) return res.status(404).send("Session for user not found");
+
   res.send("End Session...");
 });
 
