@@ -4,7 +4,7 @@ import Joi from "joi";
 export const Session = mongoose.model(
   "Session",
   new mongoose.Schema({
-    userId: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true
