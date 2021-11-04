@@ -12,7 +12,7 @@
     "restart": "rimraf dist && yarn run start",
     "dev": "NODE_ENV=development nodemon --exec yarn run restart",
     "lint": "yarn lint:js",
-    "lint:js": "eslint \"src/**/*.js\" \"ui/src/**/*.js\" --fix",
+    "lint:js": "eslint \"src/**/*.js\" \"ui/src/**/*.jsx\" --fix",
     "test": "jest -i --watch --verbose",
     "test:all": "jest -i --watchAll  --verbose",
     "pre-commit": "jest -o -i && lint-staged"
@@ -55,6 +55,6 @@
   },
   "prettier": "@3sidedcube/prettier-config",
   "lint-staged": {
-    "*.js": "eslint --cache --fix"
+    "*.+(js|jsx)": "eslint --cache --fix"
   }
 }

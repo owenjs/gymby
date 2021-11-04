@@ -357,3 +357,6 @@ dist/
 
 # Logs
 logs/
+
+# eslint cahce
+.eslintcache
