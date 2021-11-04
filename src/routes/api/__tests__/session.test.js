@@ -90,13 +90,15 @@ describe("/api/session", () => {
   });
 
   describe("POST /end", () => {
+    let sessionInDb;
+
     beforeEach(async () => {
       const session = new Session({
         user: useInDB._id,
         startDate: DateTime.now().minus({ hours: 1 })
       });
 
-      await session.save();
+      sessionInDb = await session.save();
     });
 
     const exec = () => {
@@ -125,9 +127,42 @@ describe("/api/session", () => {
       expect(res.status).toBe(400);
     });
 
-    // should return 404 if an active session is not found for the user
-    // should set the endDate to now if valid request
-    // should set the duration to the difference between startDate and endDate in milliseconds
-    // should return the session info if valid request
+    it("should return 404 if an active session is not found for the user", async () => {
+      await Session.deleteMany({});
+
+      const res = await exec();
+
+      expect(res.status).toBe(404);
+    });
+
+    it("should set the endDate to now if valid request", async () => {
+      await exec();
+
+      const endedSession = await Session.findById(sessionInDb._id);
+
+      const diff = new Date() - endedSession.endDate;
+      // Less than 1 second
+      expect(diff).toBeLessThan(1000);
+    });
+
+    it("should set the duration to the difference between startDate and endDate in milliseconds", async () => {
+      await exec();
+
+      const endedSession = await Session.findById(sessionInDb._id);
+
+      const diff = endedSession.endDate - endedSession.startDate;
+
+      expect(diff).toEqual(endedSession.duration);
+      // greater than 1 hour
+      expect(diff).toBeGreaterThanOrEqual(60 * 60 * 1000);
+      // Less then 1 hour + 1 second
+      expect(diff).toBeLessThan(60 * 60 * 1000 + 1000);
+    });
+
+    it("should return the session info if valid request", async () => {
+      const res = await exec();
+
+      expect(Object.keys(res.body)).toEqual(expect.arrayContaining(["user", "startDate", "endDate", "duration"]));
+    });
   });
 });

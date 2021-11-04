@@ -33,7 +33,10 @@ router.post("/end", auth, async (req, res) => {
   const session = await Session.findOne({ user: req.user._id, endDate: null });
   if (!session) return res.status(404).send("Session for user not found");
 
-  res.send("End Session...");
+  session.endDate = new Date();
+  session.duration = session.endDate - session.startDate;
+
+  res.send(await session.save());
 });
 
 export default router;
