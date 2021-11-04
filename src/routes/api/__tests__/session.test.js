@@ -10,7 +10,7 @@ describe("/api/session", () => {
   const username = "123",
     password = "pass123";
 
-  let server, token, useInDB;
+  let server, token, userInDB;
 
   beforeAll(() => {
     server = require("src").default;
@@ -33,7 +33,7 @@ describe("/api/session", () => {
 
     token = user.generateAuthToken();
 
-    useInDB = await user.save();
+    userInDB = await user.save();
   });
 
   afterEach(async () => {
@@ -82,6 +82,16 @@ describe("/api/session", () => {
       expect(res.status).toBe(400);
     });
 
+    it("should set the startDate to now if valid request", async () => {
+      await exec();
+
+      const startedSession = await Session.findOne({ user: userInDB._id, endDate: null });
+
+      const diff = new Date() - startedSession.startDate;
+      // Less than 1 second
+      expect(diff).toBeLessThan(1000);
+    });
+
     it("should return the session info if request is valid", async () => {
       const res = await exec();
 
@@ -94,7 +104,7 @@ describe("/api/session", () => {
 
     beforeEach(async () => {
       const session = new Session({
-        user: useInDB._id,
+        user: userInDB._id,
         startDate: DateTime.now().minus({ hours: 1 })
       });
 
