@@ -8,7 +8,7 @@
     "jest/globals": true
   },
   "plugins": ["prettier", "jest"],
-  "extends": ["eslint:recommended", "plugin:jest/recommended", "plugin:jest/style", "prettier"],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:react/jsx-runtime", "plugin:jest/recommended", "plugin:jest/style", "prettier"],
   "rules": {
     // Allow Prettier to throw errors via ESLint
     "prettier/prettier": "error"
@@ -20,5 +20,10 @@
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }
