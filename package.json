@@ -11,8 +11,9 @@
     "start": "yarn run build && node dist",
     "restart": "rimraf dist && yarn run start",
     "dev": "NODE_ENV=development nodemon --exec yarn run restart",
-    "lint": "yarn lint:js",
-    "lint:js": "eslint \"src/**/*.js\" \"ui/src/**/*.jsx\" --fix",
+    "lint": "yarn lint:js && yarn lint:css",
+    "lint:js": "eslint \"src/**/*.js\" \"ui/src/**/*.+(js|jsx)\" --fix",
+    "lint:css": "stylelint \"ui/src/**/*.+(css|scss)\" --fix",
     "test": "jest -i --watch --verbose",
     "test:all": "jest -i --watchAll  --verbose",
     "pre-commit": "jest -o -i && lint-staged"
@@ -34,9 +35,12 @@
     "jest": "^27.3.1",
     "lint-staged": ">=10",
     "nodemon": "^2.0.14",
+    "postcss": "^8.3.11",
     "prettier": "^2.4.1",
     "react": "^17.0.2",
     "rimraf": "^3.0.2",
+    "stylelint": "^14.0.1",
+    "stylelint-config-twbs-bootstrap": "^2.2.4",
     "supertest": "^6.1.6"
   },
   "dependencies": {
@@ -53,8 +57,13 @@
     "morgan": "^1.10.0",
     "winston": "^3.3.3"
   },
+  "resolutions": {
+    "stylelint-config-twbs-bootstrap/stylelint-config-standard": "^23.0.0",
+    "stylelint-config-twbs-bootstrap/stylelint-config-recommended-scss": "^5.0.1"
+  },
   "prettier": "@3sidedcube/prettier-config",
   "lint-staged": {
-    "*.+(js|jsx)": "eslint --cache --fix"
+    "*.+(js|jsx)": "eslint --cache --fix",
+    "*.+(css|scss|sass)": "stylelint --cache --fix"
   }
 }
