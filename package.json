@@ -7,8 +7,10 @@
   "license": "MIT",
   "scripts": {
     "prepare": "husky install",
-    "build": "babel src -d dist",
-    "start": "yarn run build && node dist",
+    "build": "yarn run build:server && yarn run build:ui",
+    "build:server": "babel src -d dist",
+    "build:ui": "yarn --cwd \"./ui\" run build",
+    "start": "yarn run build:server && node dist",
     "restart": "rimraf dist && yarn run start",
     "dev": "NODE_ENV=development nodemon --exec yarn run restart",
     "lint": "yarn lint:js && yarn lint:css",
