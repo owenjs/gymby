@@ -358,5 +358,6 @@ dist/
 # Logs
 logs/
 
-# eslint cahce
+# cache
 .eslintcache
+.stylelintcache

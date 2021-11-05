@@ -7,8 +7,8 @@
     "es6": true,
     "jest/globals": true
   },
-  "plugins": ["prettier", "jest"],
-  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:react/jsx-runtime", "plugin:jest/recommended", "plugin:jest/style", "prettier"],
+  "plugins": ["prettier", "jest", "jsx-a11y"],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:react/jsx-runtime", "plugin:jsx-a11y/recommended", "plugin:jest/recommended", "plugin:jest/style", "prettier"],
   "rules": {
     // Allow Prettier to throw errors via ESLint
     "prettier/prettier": "error"
