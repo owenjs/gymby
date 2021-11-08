@@ -15,7 +15,10 @@ export default defineConfig({
     })
   ],
   resolve: {
-    alias: [{ find: "/@", replacement: path.resolve(__dirname, "src") }]
+    alias: [
+      { find: "/@", replacement: path.resolve(__dirname, "src") },
+      { find: "/#", replacement: path.resolve(__dirname, "src/components") }
+    ]
   },
   build: {
     outDir: path.resolve(__dirname, "../dist/public")

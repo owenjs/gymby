@@ -1,7 +1,11 @@
 import { useState } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { NAME as authSliceName } from "/@/reducers/auth";
 import logo from "/@/assets/logo.svg";
+import PropTypes from "prop-types";
 
-function App() {
+const App = ({ auth }) => {
   const [count, setCount] = useState(0);
 
   return (
@@ -22,6 +26,10 @@ function App() {
             Learn React
           </a>
           {" | "}
+          <Link className="App-link" to="/auth">
+            {auth ? "Authorised" : "Unauthorised"}
+          </Link>
+          {" | "}
           <a
             className="App-link"
             href="https://vitejs.dev/guide/features.html"
@@ -34,6 +42,10 @@ function App() {
       </header>
     </div>
   );
-}
+};
 
-export default App;
+App.propTypes = {
+  auth: PropTypes.bool.isRequired
+};
+
+export default connect(state => ({ auth: state[authSliceName].auth }))(App);
