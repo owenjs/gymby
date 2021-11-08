@@ -17,6 +17,7 @@
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-redux": "^7.2.6",
+    "react-router-dom": "^6.0.1",
     "redux": "^4.1.2",
     "sass": "^1.43.4"
   },
@@ -71,6 +72,7 @@
     ],
     "moduleNameMapper": {
       "^/@/(.*)$": "<rootDir>/src/$1",
+      "^/#/(.*)$": "<rootDir>/src/components/$1",
       "^/@jest-utils$": "<rootDir>/jest/utils",
       "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
     },

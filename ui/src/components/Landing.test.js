@@ -1,12 +1,12 @@
 import { render, screen } from "/@jest-utils";
-import App from "./App";
+import Landing from "/#/Landing";
 
-describe("App", function () {
+describe("Landing", function () {
   beforeEach(() => {
-    render(<App />);
+    render(<Landing />);
   });
 
-  test("should render Learn React link", async () => {
+  test("should render Learn React link", () => {
     expect(screen.getByRole("link", { name: "Learn React" })).toBeDefined();
   });
 

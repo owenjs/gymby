@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { NAME as authSliceName } from "/@/reducers/auth";
 import logo from "/@/assets/logo.svg";
 import PropTypes from "prop-types";
@@ -25,9 +26,9 @@ const App = ({ auth }) => {
             Learn React
           </a>
           {" | "}
-          <a className="App-link" href="https://google.com" target="_blank" rel="noopener noreferrer">
+          <Link className="App-link" to="/auth">
             {auth ? "Authorised" : "Unauthorised"}
-          </a>
+          </Link>
           {" | "}
           <a
             className="App-link"
