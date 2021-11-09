@@ -1,15 +1,25 @@
 import { Routes, Route } from "react-router-dom";
+import Layout from "/@/pages/Layout";
 import Landing from "/@/components/Landing";
+import Login from "/@/pages/Login";
+import Auth from "/@/pages/Auth";
+import Dashboard from "/@/pages/Dashboard";
 import NotFound from "/@/pages/404";
 
 const Pages = () => (
-  <div className="c-main-wrapper">
-    <Routes>
-      <Route exact path="/" element={<Landing />} />
+  <Routes>
+    <Route path="/" element={<Layout />}>
+      <Route index element={<Landing />} />
+
+      <Route path="/login" element={<Login />} />
+
+      <Route path="/dashboard" element={<Auth />}>
+        <Route index element={<Dashboard />} />
+      </Route>
 
       <Route path="*" element={<NotFound />} />
-    </Routes>
-  </div>
+    </Route>
+  </Routes>
 );
 
 export default Pages;
