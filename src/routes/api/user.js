@@ -22,9 +22,9 @@ router.post("/", validate(validateUser), async (req, res) => {
 
   user = await user.save();
 
-  // Test
   return res.header("x-auth-token", token).send({
-    _id: user._id,username: user.username
+    _id: user._id,
+    username: user.username
   });
 });
 
