@@ -360,4 +360,4 @@ logs/
 
 # cache
 .eslintcache
-.stylelintcache
+ui/.stylelintcache

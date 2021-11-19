@@ -4,12 +4,15 @@
   "scripts": {
     "dev": "yarn dev:vite & nodemon --ext css,scss,sass --watch src/ --exec yarn run dev:lint",
     "dev:vite": "vite",
-    "dev:lint": "stylelint \"src/**/*.+(css|scss|sass)\" --config \"../.stylelintrc.json\" --fix --cache --cache-location \"../.stylelintcache\"",
+    "dev:lint": "stylelint \"src/**/*.+(css|scss|sass)\" --fix --cache",
     "build": "vite build",
     "serve": "vite preview",
+    "lint": "yarn lint:js && yarn lint:css",
+    "lint:js": "eslint \"src/**/*.+(js|jsx|ts|tsx)\" --fix",
+    "lint:css": "stylelint \"src/**/*.+(css|scss|sass)\" --fix",
     "test": "jest -i --watch --verbose -env=jsdom",
     "test:all": "jest -i --watchAll --verbose -env=jsdom",
-    "pre-commit": "jest -o -i -env=jsdom"
+    "pre-commit": "jest -o -i -env=jsdom && lint-staged"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.2",
@@ -39,15 +42,28 @@
     "babel-eslint": "^10.1.0",
     "babel-jest": "^27.3.1",
     "babel-preset-react-app": "^10.0.0",
+    "eslint": "^8.2.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.27.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.3.1",
     "jest-circus": "^27.3.1",
     "jest-scss-transform": "^1.0.1",
     "jest-watch-typeahead": "^1.0.0",
+    "lint-staged": "^12.0.3",
     "nodemon": "^2.0.14",
     "stylelint": "^14.0.1",
+    "stylelint-config-twbs-bootstrap": "^2.2.4",
     "tailwindcss": "^2.2.19",
     "vite": "^2.6.4"
+  },
+  "resolutions": {
+    "stylelint-config-twbs-bootstrap/stylelint-config-standard": "^23.0.0",
+    "stylelint-config-twbs-bootstrap/stylelint-config-recommended-scss": "^5.0.1"
+  },
+  "lint-staged": {
+    "src/**/*.+(js|jsx|ts|tsx)": "eslint --fix",
+    "src/**/*.+(css|scss|sass)": "stylelint --fix"
   },
   "jest": {
     "roots": [
