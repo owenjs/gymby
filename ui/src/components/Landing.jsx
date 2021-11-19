@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 const App = ({ auth }) => {
   const [count, setCount] = useState(0);
 
+  // Test
   return (
     <div className="App">
       <header className="App-header">
