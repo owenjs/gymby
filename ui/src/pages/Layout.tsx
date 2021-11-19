@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 
-const Wrapper = () => (
+const Wrapper = (): JSX.Element => (
   <div className="c-main-wrapper">
     <Outlet />
   </div>

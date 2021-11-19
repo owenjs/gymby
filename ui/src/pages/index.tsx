@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 import Layout from "/@/pages/Layout";
-import Landing from "/@/components/Landing";
+import Landing from "/#/Landing";
 import Login from "/@/pages/Login";
 import Auth from "/@/pages/Auth";
 import Dashboard from "/@/pages/Dashboard";
 import NotFound from "/@/pages/404";
 
-const Pages = () => (
+const Pages = (): JSX.Element => (
   <Routes>
     <Route path="/" element={<Layout />}>
       <Route index element={<Landing />} />

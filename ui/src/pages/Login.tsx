@@ -2,13 +2,18 @@ import { connect } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { setAuth } from "/@/reducers/auth";
 import PropTypes from "prop-types";
+import { MouseEventHandler } from "react";
 
-export const Login = ({ setAuth }) => {
+interface IProps {
+  setAuth: any;
+}
+
+export const Login = ({ setAuth }: IProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
-  const handleSubmit = e => {
+  const handleSubmit: MouseEventHandler = e => {
     e.preventDefault();
 
     // ToDo: auth endpoint

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export const NAME = "auth";
 
@@ -8,7 +8,7 @@ const counterSlice = createSlice({
   name: NAME,
   initialState,
   reducers: {
-    setAuth(state, { payload }) {
+    setAuth(state, { payload }: PayloadAction<boolean>) {
       state.auth = payload;
     }
   }
