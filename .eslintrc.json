@@ -1,4 +1,5 @@
 {
+  "root": true,
   "ignorePatterns": ["dist", "node_modules"],
   "env": {
     "node": true,
