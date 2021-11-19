@@ -56,6 +56,6 @@
   },
   "prettier": "@3sidedcube/prettier-config",
   "lint-staged": {
-    "src/**/*.+js": "eslint --fix"
+    "src/**/*.js": "eslint --fix"
   }
 }
