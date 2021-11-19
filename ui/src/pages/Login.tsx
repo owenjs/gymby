@@ -1,14 +1,14 @@
+import { MouseEventHandler } from "react";
 import { connect } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { setAuth } from "/@/reducers/auth";
-import PropTypes from "prop-types";
-import { MouseEventHandler } from "react";
+import PropTypes, { InferProps } from "prop-types";
 
-interface IProps {
-  setAuth: any;
-}
+const propTypes = {
+  setAuth: PropTypes.oneOf([setAuth]).isRequired
+};
 
-export const Login = ({ setAuth }: IProps) => {
+export const Login = ({ setAuth }: InferProps<typeof propTypes>): JSX.Element => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -29,8 +29,6 @@ export const Login = ({ setAuth }: IProps) => {
   );
 };
 
-Login.propTypes = {
-  setAuth: PropTypes.func.isRequired
-};
+Login.prototype = propTypes;
 
 export default connect(undefined, { setAuth })(Login);

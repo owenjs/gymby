@@ -3,9 +3,14 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { NAME as authSliceName } from "/@/reducers/auth";
 import logo from "/@/assets/logo.svg";
-import PropTypes from "prop-types";
+import PropTypes, { InferProps } from "prop-types";
+import { RootState } from "/@/reducers";
 
-const App = ({ auth }) => {
+const propTypes = {
+  auth: PropTypes.bool.isRequired
+};
+
+const App = ({ auth }: InferProps<typeof propTypes>) => {
   const [count, setCount] = useState(0);
 
   return (
@@ -44,8 +49,6 @@ const App = ({ auth }) => {
   );
 };
 
-App.propTypes = {
-  auth: PropTypes.bool.isRequired
-};
+App.propTypes = propTypes;
 
-export default connect(state => ({ auth: state[authSliceName].auth }))(App);
+export default connect((state: RootState) => ({ auth: state[authSliceName].auth }))(App);
