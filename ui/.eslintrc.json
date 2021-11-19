@@ -1,0 +1,9 @@
+{
+  "plugins": ["jsx-a11y"],
+  "extends": ["../.eslintrc.json", "plugin:react/recommended", "plugin:react/jsx-runtime", "plugin:jsx-a11y/recommended"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
