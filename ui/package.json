@@ -68,7 +68,7 @@
   },
   "lint-staged": {
     "src/**/*.+(js|jsx|ts|tsx)": "eslint --fix",
-    "src/**/*.+(ts|tsx)": "tsc-files --noEmit",
+    "src/**/*.+(ts|tsx)": "tsc-files -p tsconfig.base.json --noEmit",
     "src/**/*.+(css|scss|sass)": "stylelint --fix"
   },
   "jest": {
