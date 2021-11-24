@@ -1,12 +1,15 @@
 import { render } from "/@jest-utils";
 import { Auth } from "/@/pages/Auth";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate as actualNavigate, Outlet as actualOutlet } from "react-router-dom";
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   Navigate: jest.fn(),
   Outlet: jest.fn()
 }));
+
+const Navigate = actualNavigate as jest.Mock;
+const Outlet = actualOutlet as jest.Mock;
 
 describe("Auth Page", () => {
   beforeEach(() => {

@@ -10,7 +10,7 @@ const propTypes = {
   auth: PropTypes.bool.isRequired
 };
 
-const App = ({ auth }: InferProps<typeof propTypes>) => {
+const Landing = ({ auth }: InferProps<typeof propTypes>) => {
   const [count, setCount] = useState(0);
 
   return (
@@ -49,6 +49,6 @@ const App = ({ auth }: InferProps<typeof propTypes>) => {
   );
 };
 
-App.propTypes = propTypes;
+Landing.propTypes = propTypes;
 
-export default connect((state: RootState) => ({ auth: state[authSliceName].auth }))(App);
+export default connect((state: RootState) => ({ auth: state[authSliceName].auth }))(Landing);
