@@ -11,7 +11,7 @@ const propTypes = {
 };
 
 const Landing = ({ auth }: InferProps<typeof propTypes>) => {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
 
   return (
     <div className="App">
