@@ -1,6 +1,8 @@
 import { PropsWithChildren } from "react";
 import { render as rtlRender } from "@testing-library/react";
 import { configureStore } from "@reduxjs/toolkit";
+import { QueryClientProvider } from "react-query";
+import queryClient from "/@/api/client";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 import rootReducer from "/@/reducers";
@@ -10,7 +12,9 @@ const render = (ui: JSX.Element, { preloadedState = {}, route = "/", ...renderOp
 
   const Wrapper = ({ children }: PropsWithChildren<object>): JSX.Element => (
     <Provider store={store}>
-      <MemoryRouter initialEntries={[route]}>{children}</MemoryRouter>
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter initialEntries={[route]}>{children}</MemoryRouter>
+      </QueryClientProvider>
     </Provider>
   );
 
