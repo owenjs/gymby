@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "/@/reducers";
 
-export default preloadedState => {
+export default (preloadedState?: object) => {
   // const middlewares = [];
 
   // if (process.env.NODE_ENV === 'development') {

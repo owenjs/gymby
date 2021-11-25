@@ -10,14 +10,14 @@ jest.mock("react-router-dom", () => ({
 describe("Dashboard Page", () => {
   const mockedSetAuth = jest.fn();
 
-  let renderOptions = {};
+  const renderOptions = {};
 
   beforeEach(() => {
     mockedSetAuth.mockReset();
   });
 
   const exec = () => {
-    render(<Login setAuth={mockedSetAuth} />, renderOptions);
+    render(<Login setAuth={mockedSetAuth as any} />, renderOptions);
   };
 
   const getLoginButton = () => screen.getByRole("button", { name: "Login" });

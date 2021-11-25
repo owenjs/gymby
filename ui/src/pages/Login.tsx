@@ -1,14 +1,19 @@
+import { MouseEventHandler } from "react";
 import { connect } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { setAuth } from "/@/reducers/auth";
-import PropTypes from "prop-types";
+import PropTypes, { InferProps } from "prop-types";
 
-export const Login = ({ setAuth }) => {
+const propTypes = {
+  setAuth: PropTypes.oneOf([setAuth]).isRequired
+};
+
+export const Login = ({ setAuth }: InferProps<typeof propTypes>): JSX.Element => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
-  const handleSubmit = e => {
+  const handleSubmit: MouseEventHandler = e => {
     e.preventDefault();
 
     // ToDo: auth endpoint
@@ -24,8 +29,6 @@ export const Login = ({ setAuth }) => {
   );
 };
 
-Login.propTypes = {
-  setAuth: PropTypes.func.isRequired
-};
+Login.prototype = propTypes;
 
 export default connect(undefined, { setAuth })(Login);

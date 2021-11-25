@@ -12,7 +12,7 @@ jest.mock(
 
 describe("Dashboard Page", () => {
   let renderOptions = {},
-    container;
+    container: HTMLElement;
 
   const exec = () => {
     const { container: renderedContainer } = render(<Pages />, renderOptions);
