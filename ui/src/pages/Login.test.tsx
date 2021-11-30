@@ -1,16 +1,17 @@
 import { render, screen, fireEvent, waitFor } from "/@jest-utils";
 import { Login } from "/@/pages/Login";
 import actualSignIn from "/@/api/gymby/v1/auth/signIn";
+import { Navigate as actualNavigate } from "react-router-dom";
 
-const mockedNavigate = jest.fn();
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
-  useNavigate: () => mockedNavigate
+  Navigate: jest.fn()
 }));
 
 jest.mock("/@/api/gymby/v1/auth/signIn");
 
 const signIn = actualSignIn as jest.Mock;
+const Navigate = actualNavigate as jest.Mock;
 
 describe("Dashboard Page", () => {
   const mockedSetAuthToken = jest.fn();
@@ -18,19 +19,22 @@ describe("Dashboard Page", () => {
   const renderOptions = {},
     apiReturn = { token: "abc" };
 
-  let willAPIResolve = true;
+  let willAPIResolve = true,
+    authToken = "";
 
   beforeEach(() => {
+    Navigate.mockReturnValue(null);
     mockedSetAuthToken.mockReset();
     signIn.mockReset();
     willAPIResolve = true;
+    authToken = "";
 
     signIn.mockImplementation(() => (willAPIResolve ? Promise.resolve(apiReturn) : Promise.reject(new Error())));
   });
 
   const exec = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    render(<Login setAuthToken={mockedSetAuthToken as any} />, renderOptions);
+    render(<Login authToken={authToken} setAuthToken={mockedSetAuthToken as any} />, renderOptions);
   };
 
   const getLoginButton = () => screen.getByRole("button", { name: "Login" });
@@ -62,13 +66,13 @@ describe("Dashboard Page", () => {
     });
   });
 
-  test("should fire a 'navigate' call when user logs in correctly", async () => {
+  test("should redirect user when logged in", async () => {
+    authToken = "abc";
+
     exec();
 
-    userLogsIn();
-
     await waitFor(() => {
-      expect(mockedNavigate).toHaveBeenCalled();
+      expect(Navigate).toHaveBeenCalled();
     });
   });
 

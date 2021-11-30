@@ -1,18 +1,19 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { connect } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-import { setAuthToken } from "/@/redux/reducers/auth";
+import { useLocation, Navigate } from "react-router-dom";
+import PropTypes, { InferProps } from "prop-types";
+import { RootState } from "/@/redux/reducers";
+import { setAuthToken, NAME as authSliceName } from "/@/redux/reducers/auth";
 import Form, { Input } from "/#/Form";
 import { ILoginInFields } from "/@/types/loginIn";
-import PropTypes, { InferProps } from "prop-types";
 import signIn from "/@/api/gymby/v1/auth/signIn";
 
 const propTypes = {
+  authToken: PropTypes.string.isRequired,
   setAuthToken: PropTypes.oneOf([setAuthToken]).isRequired
 };
 
-export const Login = ({ setAuthToken }: InferProps<typeof propTypes>): JSX.Element => {
-  const navigate = useNavigate();
+export const Login = ({ authToken, setAuthToken }: InferProps<typeof propTypes>): JSX.Element => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
@@ -26,14 +27,14 @@ export const Login = ({ setAuthToken }: InferProps<typeof propTypes>): JSX.Eleme
       const responseData = await signIn(data);
 
       setAuthToken(responseData.token);
-
-      navigate(from, { replace: true });
     } catch (e) {
       formMethods.reset(defaultValues);
     }
   };
 
-  return (
+  return authToken ? (
+    <Navigate to={from} replace={true} />
+  ) : (
     <div>
       <Form<ILoginInFields> onSubmit={handleSubmit} submitText="Login" methods={formMethods}>
         {({ register }) => (
@@ -49,4 +50,4 @@ export const Login = ({ setAuthToken }: InferProps<typeof propTypes>): JSX.Eleme
 
 Login.prototype = propTypes;
 
-export default connect(undefined, { setAuthToken })(Login);
+export default connect((state: RootState) => ({ authToken: state[authSliceName].authToken }), { setAuthToken })(Login);

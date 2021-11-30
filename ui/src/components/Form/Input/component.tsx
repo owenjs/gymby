@@ -23,10 +23,7 @@ Input.displayName = "Input";
 
 Input.propTypes = {
   type: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onBlur: PropTypes.func.isRequired
+  label: PropTypes.string.isRequired
 };
 
 export default Input;
