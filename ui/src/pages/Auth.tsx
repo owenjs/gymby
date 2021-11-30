@@ -1,19 +1,17 @@
 import { connect } from "react-redux";
 import { useLocation, Navigate, Outlet } from "react-router-dom";
-import { NAME as authSliceName } from "/@/reducers/auth";
+import { NAME as authSliceName } from "/@/redux/reducers/auth";
 import PropTypes, { InferProps } from "prop-types";
-import { RootState } from "/@/reducers";
+import { RootState } from "/@/redux/reducers";
 
 const propTypes = {
-  user: PropTypes.bool.isRequired
+  authToken: PropTypes.string.isRequired
 };
 
-export const Auth = ({ user }: InferProps<typeof propTypes>): JSX.Element => {
-  // ToDo: Auth hook
-  const auth = { user };
+export const Auth = ({ authToken }: InferProps<typeof propTypes>): JSX.Element => {
   const location = useLocation();
 
-  if (!auth.user) {
+  if (!authToken) {
     return <Navigate to="/login" state={{ from: location }} />;
   }
 
@@ -22,4 +20,4 @@ export const Auth = ({ user }: InferProps<typeof propTypes>): JSX.Element => {
 
 Auth.propTypes = propTypes;
 
-export default connect((state: RootState) => ({ user: state[authSliceName].auth }))(Auth);
+export default connect((state: RootState) => ({ authToken: state[authSliceName].authToken }))(Auth);

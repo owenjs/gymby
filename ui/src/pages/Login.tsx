@@ -1,34 +1,47 @@
-import { MouseEventHandler } from "react";
+import { SubmitHandler } from "react-hook-form";
 import { connect } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { setAuth } from "/@/reducers/auth";
+import { setAuthToken } from "/@/redux/reducers/auth";
+import Form, { Input } from "/#/Form";
+import { ILoginInFields } from "/@/types/loginIn";
 import PropTypes, { InferProps } from "prop-types";
+import signIn from "/@/api/gymby/v1/auth/signIn";
 
 const propTypes = {
-  setAuth: PropTypes.oneOf([setAuth]).isRequired
+  setAuthToken: PropTypes.oneOf([setAuthToken]).isRequired
 };
 
-export const Login = ({ setAuth }: InferProps<typeof propTypes>): JSX.Element => {
+export const Login = ({ setAuthToken }: InferProps<typeof propTypes>): JSX.Element => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
-  const handleSubmit: MouseEventHandler = e => {
-    e.preventDefault();
+  const handleSubmit: SubmitHandler<ILoginInFields> = async data => {
+    try {
+      const responseData = await signIn(data);
 
-    // ToDo: auth endpoint
-    setAuth(true);
+      setAuthToken(responseData.token);
 
-    navigate(from, { replace: true });
+      navigate(from, { replace: true });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
     <div>
-      <button onClick={handleSubmit}>Login</button>
+      <Form<ILoginInFields> onSubmit={handleSubmit} submitText="Login" defaultValues={{ username: "", password: "" }}>
+        {({ register }) => (
+          <>
+            <Input {...register("username")} type="text" label="Username" />
+            <Input {...register("password")} type="password" label="Password" />
+          </>
+        )}
+      </Form>
     </div>
   );
 };
 
 Login.prototype = propTypes;
 
-export default connect(undefined, { setAuth })(Login);
+export default connect(undefined, { setAuthToken })(Login);

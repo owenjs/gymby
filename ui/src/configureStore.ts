@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import rootReducer from "/@/reducers";
+import rootReducer from "/@/redux/reducers";
 
 export default (preloadedState?: object) => {
   // const middlewares = [];
@@ -17,7 +17,7 @@ export default (preloadedState?: object) => {
   return configureStore({
     reducer: rootReducer,
     preloadedState
-    // middleware: getDefaultMiddleware => [...middlewares, ...getDefaultMiddleware()],
+    // middleware: getDefaultMiddleware => [...middlewares, ...getDefaultMiddleware()]
     // enhancers
   });
 };
