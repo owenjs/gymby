@@ -10,9 +10,9 @@
     "lint": "yarn lint:js && yarn lint:css",
     "lint:js": "eslint \"src/**/*.+(js|jsx|ts|tsx)\" --fix",
     "lint:css": "stylelint \"src/**/*.+(css|scss|sass)\" --fix",
-    "test": "jest -i --watch --verbose -env=jsdom",
-    "test:all": "jest -i --watchAll --verbose -env=jsdom",
-    "pre-commit": "jest -o -i -env=jsdom && lint-staged"
+    "test": "jest --watch --verbose -env=jsdom",
+    "test:all": "jest --watchAll --verbose -env=jsdom",
+    "pre-commit": "jest -o -env=jsdom && lint-staged"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.2",
@@ -27,12 +27,14 @@
     "prop-types": "^15.7.2",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
+    "react-hook-form": "^7.20.2",
     "react-query": "^3.33.5",
     "react-query-devtools": "^2.6.3",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.0.1",
     "sass": "^1.43.4",
-    "typescript": "^4.5.2"
+    "typescript": "^4.5.2",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
@@ -41,6 +43,7 @@
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+    "@types/uuid": "^8.3.3",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "@vitejs/plugin-react": "^1.0.0",

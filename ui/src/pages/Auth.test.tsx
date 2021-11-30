@@ -18,14 +18,14 @@ describe("Auth Page", () => {
   });
 
   test("should redirect user when not logged in", () => {
-    render(<Auth user={false} />);
+    render(<Auth authToken="" />);
 
     expect(Navigate).toHaveBeenCalled();
     expect(Outlet).not.toHaveBeenCalled();
   });
 
   test("should render child routes when user is logged in", () => {
-    render(<Auth user={true} />);
+    render(<Auth authToken="abc" />);
 
     expect(Outlet).toHaveBeenCalled();
     expect(Navigate).not.toHaveBeenCalled();

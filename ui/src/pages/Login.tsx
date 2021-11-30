@@ -1,34 +1,53 @@
-import { MouseEventHandler } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { connect } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-import { setAuth } from "/@/reducers/auth";
+import { useLocation, Navigate } from "react-router-dom";
 import PropTypes, { InferProps } from "prop-types";
+import { RootState } from "/@/redux/reducers";
+import { setAuthToken, NAME as authSliceName } from "/@/redux/reducers/auth";
+import Form, { Input } from "/#/Form";
+import { ILoginInFields } from "/@/types/loginIn";
+import signIn from "/@/api/gymby/v1/auth/signIn";
 
 const propTypes = {
-  setAuth: PropTypes.oneOf([setAuth]).isRequired
+  authToken: PropTypes.string.isRequired,
+  setAuthToken: PropTypes.oneOf([setAuthToken]).isRequired
 };
 
-export const Login = ({ setAuth }: InferProps<typeof propTypes>): JSX.Element => {
-  const navigate = useNavigate();
+export const Login = ({ authToken, setAuthToken }: InferProps<typeof propTypes>): JSX.Element => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
-  const handleSubmit: MouseEventHandler = e => {
-    e.preventDefault();
+  const defaultValues: ILoginInFields = { username: "", password: "" };
+  const formMethods = useForm<ILoginInFields>({
+    defaultValues
+  });
 
-    // ToDo: auth endpoint
-    setAuth(true);
+  const handleSubmit: SubmitHandler<ILoginInFields> = async data => {
+    try {
+      const responseData = await signIn(data);
 
-    navigate(from, { replace: true });
+      setAuthToken(responseData.token);
+    } catch (e) {
+      formMethods.reset(defaultValues);
+    }
   };
 
-  return (
+  return authToken ? (
+    <Navigate to={from} replace={true} />
+  ) : (
     <div>
-      <button onClick={handleSubmit}>Login</button>
+      <Form<ILoginInFields> onSubmit={handleSubmit} submitText="Login" methods={formMethods}>
+        {({ register }) => (
+          <>
+            <Input {...register("username")} type="text" label="Username" />
+            <Input {...register("password")} type="password" label="Password" />
+          </>
+        )}
+      </Form>
     </div>
   );
 };
 
 Login.prototype = propTypes;
 
-export default connect(undefined, { setAuth })(Login);
+export default connect((state: RootState) => ({ authToken: state[authSliceName].authToken }), { setAuthToken })(Login);

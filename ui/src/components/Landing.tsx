@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { NAME as authSliceName } from "/@/reducers/auth";
+import { NAME as authSliceName } from "/@/redux/reducers/auth";
 import logo from "/@/assets/logo.svg";
 import PropTypes, { InferProps } from "prop-types";
-import { RootState } from "/@/reducers";
+import { RootState } from "/@/redux/reducers";
 
 const propTypes = {
-  auth: PropTypes.bool.isRequired
+  authToken: PropTypes.string.isRequired
 };
 
-const Landing = ({ auth }: InferProps<typeof propTypes>) => {
+const Landing = ({ authToken }: InferProps<typeof propTypes>) => {
   const [count, setCount] = useState(0);
 
   return (
@@ -31,8 +31,8 @@ const Landing = ({ auth }: InferProps<typeof propTypes>) => {
             Learn React
           </a>
           {" | "}
-          <Link className="App-link" to="/auth">
-            {auth ? "Authorised" : "Unauthorised"}
+          <Link className="App-link" to="/dashboard">
+            {authToken ? "Authorised" : "Unauthorised"}
           </Link>
           {" | "}
           <a
@@ -51,4 +51,4 @@ const Landing = ({ auth }: InferProps<typeof propTypes>) => {
 
 Landing.propTypes = propTypes;
 
-export default connect((state: RootState) => ({ auth: state[authSliceName].auth }))(Landing);
+export default connect((state: RootState) => ({ authToken: state[authSliceName].authToken }))(Landing);

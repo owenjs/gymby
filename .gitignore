@@ -361,3 +361,5 @@ logs/
 # cache
 .eslintcache
 ui/.stylelintcache
+
+.idea

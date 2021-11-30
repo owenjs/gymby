@@ -5,7 +5,7 @@ import { QueryClientProvider } from "react-query";
 import queryClient from "/@/api/client";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
-import rootReducer from "/@/reducers";
+import rootReducer from "/@/redux/reducers";
 
 const render = (ui: JSX.Element, { preloadedState = {}, route = "/", ...renderOptions } = {}) => {
   const store = configureStore({ reducer: rootReducer, preloadedState });

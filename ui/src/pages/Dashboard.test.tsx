@@ -1,5 +1,5 @@
 import { render, screen } from "/@jest-utils";
-import { NAME as authSliceName } from "/@/reducers/auth";
+import { NAME as authSliceName } from "/@/redux/reducers/auth";
 import Pages from "/@/pages";
 
 jest.mock(
@@ -29,7 +29,7 @@ describe("Dashboard Page", () => {
   });
 
   test("should render correctly when user is logged in", () => {
-    renderOptions = { route: "/dashboard", preloadedState: { [authSliceName]: { auth: true } } };
+    renderOptions = { route: "/dashboard", preloadedState: { [authSliceName]: { authToken: "abc" } } };
 
     exec();
 
