@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import config from "config";
 
-describe("/api/auth", () => {
+describe("/api/v1/auth", () => {
   let server, payload;
 
   beforeEach(() => {
@@ -49,7 +49,7 @@ describe("/api/auth", () => {
     });
 
     const exec = () => {
-      return request(server).post("/api/auth").send(payload);
+      return request(server).post("/api/v1/auth").send(payload);
     };
 
     it("should return 200 if valid request", async () => {

@@ -2,7 +2,7 @@ import Axios from "axios";
 
 const axios = Axios.create({
   // ToDo: move to constant
-  baseURL: "http://localhost:5000/api"
+  baseURL: "http://localhost:5000/api/v1"
 });
 
 export const setAuthTokenHeader = (token: string) => {

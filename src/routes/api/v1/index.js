@@ -1,7 +1,7 @@
 import { Router } from "express";
-import session from "src/routes/api/session";
-import user from "src/routes/api/user";
-import auth from "src/routes/api/auth";
+import session from "src/routes/api/v1/session";
+import user from "src/routes/api/v1/user";
+import auth from "src/routes/api/v1/auth";
 const router = Router();
 
 router.use("/session", session);

@@ -3,7 +3,7 @@ import helmet from "helmet";
 import cors from "cors";
 import errorMiddleWare from "src/middleware/error";
 
-import api from "src/routes/api";
+import apiV1 from "src/routes/api/v1";
 
 export default app => {
   app.use(helmet());
@@ -12,7 +12,7 @@ export default app => {
 
   app.use(express.static("dist/public"));
 
-  app.use("/api", api);
+  app.use("/api/v1", apiV1);
 
   app.use(errorMiddleWare);
 };
