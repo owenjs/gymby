@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { User } from "src/models/user";
 
-describe("/api/user", () => {
+describe("/api/v1/user", () => {
   let server, token, payload;
 
   beforeEach(() => {
@@ -34,7 +34,7 @@ describe("/api/user", () => {
     });
 
     const exec = () => {
-      return request(server).post("/api/user").set("x-auth-token", token).send(payload);
+      return request(server).post("/api/v1/user").set("x-auth-token", token).send(payload);
     };
 
     it("should return 200 if valid request", async () => {

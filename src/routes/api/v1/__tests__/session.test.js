@@ -6,7 +6,7 @@ import bcrypt from "bcrypt";
 import { AUTH_TOKEN_HEADER } from "src/constants/auth";
 import { DateTime } from "luxon";
 
-describe("/api/session", () => {
+describe("/api/v1/session", () => {
   const username = "123",
     password = "pass123";
 
@@ -48,7 +48,7 @@ describe("/api/session", () => {
 
   describe("POST /start", () => {
     const exec = () => {
-      return request(server).post("/api/session/start").set(AUTH_TOKEN_HEADER, token).send({});
+      return request(server).post("/api/v1/session/start").set(AUTH_TOKEN_HEADER, token).send({});
     };
 
     it("should return 200 if valid request", async () => {
@@ -112,7 +112,7 @@ describe("/api/session", () => {
     });
 
     const exec = () => {
-      return request(server).post("/api/session/end").set(AUTH_TOKEN_HEADER, token).send({});
+      return request(server).post("/api/v1/session/end").set(AUTH_TOKEN_HEADER, token).send({});
     };
 
     it("should return 200 if valid request", async () => {
