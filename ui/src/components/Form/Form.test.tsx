@@ -30,7 +30,7 @@ describe("Form Component", () => {
   };
 
   const userSubmitsForm = () => {
-    fireEvent.change(screen.getByRole("textbox", { name: "Test" }), { target: { value: "abc" } });
+    fireEvent.input(screen.getByRole("textbox", { name: "Test" }), { target: { value: "abc" } });
     fireEvent.click(screen.getByRole("button"));
   };
 
