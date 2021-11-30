@@ -10,9 +10,9 @@
     "lint": "yarn lint:js && yarn lint:css",
     "lint:js": "eslint \"src/**/*.+(js|jsx|ts|tsx)\" --fix",
     "lint:css": "stylelint \"src/**/*.+(css|scss|sass)\" --fix",
-    "test": "jest -i --watch --verbose -env=jsdom",
-    "test:all": "jest -i --watchAll --verbose -env=jsdom",
-    "pre-commit": "jest -o -i -env=jsdom && lint-staged"
+    "test": "jest --watch --verbose -env=jsdom",
+    "test:all": "jest --watchAll --verbose -env=jsdom",
+    "pre-commit": "jest -o -env=jsdom && lint-staged"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.2",

@@ -18,11 +18,14 @@ describe("Dashboard Page", () => {
   const renderOptions = {},
     apiReturn = { token: "abc" };
 
+  let willAPIResolve = true;
+
   beforeEach(() => {
     mockedSetAuthToken.mockReset();
     signIn.mockReset();
+    willAPIResolve = true;
 
-    signIn.mockImplementation(() => Promise.resolve(apiReturn));
+    signIn.mockImplementation(() => (willAPIResolve ? Promise.resolve(apiReturn) : Promise.reject(new Error())));
   });
 
   const exec = () => {
@@ -33,8 +36,8 @@ describe("Dashboard Page", () => {
   const getLoginButton = () => screen.getByRole("button", { name: "Login" });
 
   const userLogsIn = () => {
-    fireEvent.change(screen.getByLabelText("Username"), { target: { value: "abc" } });
-    fireEvent.change(screen.getByLabelText("Password"), { target: { value: "abc" } });
+    fireEvent.input(screen.getByLabelText("Username"), { target: { value: "abc" } });
+    fireEvent.input(screen.getByLabelText("Password"), { target: { value: "abc" } });
 
     fireEvent.click(getLoginButton());
   };
@@ -52,6 +55,8 @@ describe("Dashboard Page", () => {
 
     await waitFor(() => {
       expect(signIn).toHaveBeenCalled();
+      expect(signIn).toHaveBeenCalledWith({ username: "abc", password: "abc" });
+
       expect(mockedSetAuthToken).toHaveBeenCalled();
       expect(mockedSetAuthToken).toHaveBeenCalledWith(apiReturn.token);
     });
@@ -64,6 +69,19 @@ describe("Dashboard Page", () => {
 
     await waitFor(() => {
       expect(mockedNavigate).toHaveBeenCalled();
+    });
+  });
+
+  test("should reset the form if the user logs in incorrectly", async () => {
+    willAPIResolve = false;
+
+    exec();
+
+    userLogsIn();
+
+    await waitFor(() => {
+      expect(screen.getByLabelText<HTMLInputElement>("Username").value).toBe("");
+      expect(screen.getByLabelText<HTMLInputElement>("Password").value).toBe("");
     });
   });
 });

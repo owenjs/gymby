@@ -1,4 +1,4 @@
-import { SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { connect } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { setAuthToken } from "/@/redux/reducers/auth";
@@ -16,6 +16,11 @@ export const Login = ({ setAuthToken }: InferProps<typeof propTypes>): JSX.Eleme
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
+  const defaultValues: ILoginInFields = { username: "", password: "" };
+  const formMethods = useForm<ILoginInFields>({
+    defaultValues
+  });
+
   const handleSubmit: SubmitHandler<ILoginInFields> = async data => {
     try {
       const responseData = await signIn(data);
@@ -24,13 +29,13 @@ export const Login = ({ setAuthToken }: InferProps<typeof propTypes>): JSX.Eleme
 
       navigate(from, { replace: true });
     } catch (e) {
-      console.log(e);
+      formMethods.reset(defaultValues);
     }
   };
 
   return (
     <div>
-      <Form<ILoginInFields> onSubmit={handleSubmit} submitText="Login" defaultValues={{ username: "", password: "" }}>
+      <Form<ILoginInFields> onSubmit={handleSubmit} submitText="Login" methods={formMethods}>
         {({ register }) => (
           <>
             <Input {...register("username")} type="text" label="Username" />

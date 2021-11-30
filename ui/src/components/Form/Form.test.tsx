@@ -6,13 +6,13 @@ interface IFormFields {
 }
 
 describe("Form Component", () => {
-  const mockedOnSubmit = jest.fn();
+  const mockOnSubmit = jest.fn();
 
   let props: Omit<IProps<IFormFields>, "children">;
 
   beforeEach(() => {
     props = {
-      onSubmit: mockedOnSubmit
+      onSubmit: mockOnSubmit
     };
   });
 
@@ -27,6 +27,11 @@ describe("Form Component", () => {
         )}
       </Form>
     );
+  };
+
+  const userSubmitsForm = () => {
+    fireEvent.change(screen.getByRole("textbox", { name: "Test" }), { target: { value: "abc" } });
+    fireEvent.click(screen.getByRole("button"));
   };
 
   test("should render submit button", () => {
@@ -55,12 +60,34 @@ describe("Form Component", () => {
   test("should call onSubmit when form is submitted", async () => {
     exec();
 
-    fireEvent.change(screen.getByRole("textbox", { name: "Test" }), { target: { value: "abc" } });
-    fireEvent.click(screen.getByRole("button"));
+    userSubmitsForm();
 
     await waitFor(() => {
-      expect(mockedOnSubmit).toHaveBeenCalled();
-      expect(mockedOnSubmit).toHaveBeenCalledWith({ test: "abc" }, expect.any(Object));
+      expect(mockOnSubmit).toHaveBeenCalled();
+      expect(mockOnSubmit).toHaveBeenCalledWith({ test: "abc" }, expect.any(Object));
+    });
+  });
+
+  test("should use parent form methods if provided", async () => {
+    const mockHandleSubmit = jest.fn(e => e.preventDefault());
+    const mockRegister = jest.fn((name: string) => ({ name }));
+
+    props = {
+      ...props,
+      methods: {
+        register: mockRegister,
+        handleSubmit: () => mockHandleSubmit
+      } as any // eslint-disable-line @typescript-eslint/no-explicit-any
+    };
+
+    exec();
+
+    expect(mockRegister).toHaveBeenCalled();
+
+    userSubmitsForm();
+
+    await waitFor(() => {
+      expect(mockHandleSubmit).toHaveBeenCalled();
     });
   });
 });
