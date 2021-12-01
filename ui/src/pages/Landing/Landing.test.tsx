@@ -1,5 +1,5 @@
 import { render, screen } from "/@jest-utils";
-import Landing from "/#/Landing";
+import Landing from "/@/pages/Landing";
 
 describe("Landing", function () {
   beforeEach(() => {

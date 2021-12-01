@@ -1,5 +1,5 @@
 import { render } from "/@jest-utils";
-import { Auth } from "/@/pages/Auth";
+import Auth from "/@/pages/Auth/component";
 import { Navigate as actualNavigate, Outlet as actualOutlet } from "react-router-dom";
 
 jest.mock("react-router-dom", () => ({
