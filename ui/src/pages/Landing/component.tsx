@@ -1,10 +1,7 @@
 import { useState } from "react";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { NAME as authSliceName } from "/@/redux/reducers/auth";
 import logo from "/@/assets/logo.svg";
 import PropTypes, { InferProps } from "prop-types";
-import { RootState } from "/@/redux/reducers";
 
 const propTypes = {
   authToken: PropTypes.string.isRequired
@@ -51,4 +48,4 @@ const Landing = ({ authToken }: InferProps<typeof propTypes>) => {
 
 Landing.propTypes = propTypes;
 
-export default connect((state: RootState) => ({ authToken: state[authSliceName].authToken }))(Landing);
+export default Landing;

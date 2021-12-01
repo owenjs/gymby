@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from "/@jest-utils";
-import { Login } from "/@/pages/Login";
+import Login from "/@/pages/Login/component";
 import actualSignIn from "/@/api/gymby/v1/auth/signIn";
 import { Navigate as actualNavigate } from "react-router-dom";
 

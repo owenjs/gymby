@@ -1,9 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { connect } from "react-redux";
 import { useLocation, Navigate } from "react-router-dom";
 import PropTypes, { InferProps } from "prop-types";
-import { RootState } from "/@/redux/reducers";
-import { setAuthToken, NAME as authSliceName } from "/@/redux/reducers/auth";
+import { setAuthToken } from "/@/redux/reducers/auth";
 import Form, { Input } from "/#/Form";
 import { ILoginInFields } from "/@/types/loginIn";
 import signIn from "/@/api/gymby/v1/auth/signIn";
@@ -13,7 +11,7 @@ const propTypes = {
   setAuthToken: PropTypes.oneOf([setAuthToken]).isRequired
 };
 
-export const Login = ({ authToken, setAuthToken }: InferProps<typeof propTypes>): JSX.Element => {
+const Login = ({ authToken, setAuthToken }: InferProps<typeof propTypes>): JSX.Element => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
@@ -50,4 +48,4 @@ export const Login = ({ authToken, setAuthToken }: InferProps<typeof propTypes>)
 
 Login.prototype = propTypes;
 
-export default connect((state: RootState) => ({ authToken: state[authSliceName].authToken }), { setAuthToken })(Login);
+export default Login;
